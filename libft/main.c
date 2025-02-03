@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <time.h> 
 #define INT_MAX 2147483647
 #define INT_MIN -2147483648
@@ -17,7 +18,6 @@ void ft_check_int(int num1, int num2, char *nombre_funcion, int prueba)
         printf("\U0000274C %-3d- ft_%-5s: %-15d		%-5s: %-15d \n", prueba, nombre_funcion, num1, nombre_funcion, num2);
     }
 }
-
 
 void ft_check_str(char *str1, char *str2, char *nombre_funcion, int prueba)
 {
@@ -41,6 +41,22 @@ void ft_check_size(void *str1, void *str2, char *nombre_funcion, int prueba)
     {
         printf("\U0000274C %-3d- sizeof-ft_%-10s: %-20ld		sizeof-%-5s: %-20ld \n", prueba, nombre_funcion, sizeof(*str1), nombre_funcion, sizeof(*str2));
     }
+}
+
+void ft_check_is(int num1, int num2, char *nombre_funcion, int prueba, int value)
+{
+    if ((num1 != num2 && (num1 != 0 && num2 != 0)) || (num1 == num2 && num1 == 1))
+    {
+        printf("\U00002705 %-3d- ft_%-5s: %-15d		%-5s: %-15d value: %3d\n", prueba, nombre_funcion, num1, nombre_funcion, num2, value);
+    }
+    else if (num1 == num2 && (num1 == 0 && num2 == 0))
+    {
+        printf("\U00002705 %-3d- ft_%-5s: %-15d		%-5s: %-15d value: %3d\n", prueba, nombre_funcion, num1, nombre_funcion, num2, value);
+    }
+	else
+	{
+		printf("\U0000274C %-3d- ft_%-5s: %-15d		%-5s: %-15d value: %3d\n", prueba, nombre_funcion, num1, nombre_funcion, num2, value);
+	}
 }
 
 unsigned char ft_generate_upper()
@@ -99,6 +115,21 @@ int ft_generate_int()
 	num1 = rand() % INT_MAX + 1;
 	num -= num1;
 	return (num);
+}
+
+unsigned char ft_generate_ulde()
+{
+	int random;
+
+	random = rand() % 10;
+	if (random <= 2)
+		return (ft_generate_upper());
+	else if(random <= 5)
+		return (ft_generate_lower());
+	else if(random <= 8)
+		return (ft_generate_digit());
+	else
+		return (32);
 }
 
 void ft_generate_string(char **s, int len_max, int num_dis)
@@ -199,9 +230,14 @@ int main(int argc, char *argv[])
 	int		i;
 	char	*str;
 	char	*str1;
+	char	*str2;
+	char	*str3;
 	int		cantidad_pruebas;
 	int		random;
 	int		random1;
+	int		random2;
+	int		aux;
+	int		aux1;
 	clock_t start, end;
     double cpu_time_used_ft;
 	double cpu_time_used;
@@ -242,7 +278,7 @@ int main(int argc, char *argv[])
 		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
 		free(str);
 	}
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_atoi:%fs original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_atoi:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
 
 	printf ("\n\U00002B50------Pruebas Bzero------\U00002B50\n");
@@ -282,7 +318,7 @@ int main(int argc, char *argv[])
 		free(str);
 		free(str1);
 	}
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_bzero:%fs original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_bzero:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
 
 	printf ("\n\U00002B50------Pruebas Calloc------\U00002B50\n");
@@ -294,7 +330,6 @@ int main(int argc, char *argv[])
 		str = (char *)ft_calloc(random, random1);
 		str1 = (char *)calloc(random, random1);
 		ft_check_str(str, str1, "calloc", i);
-		ft_check_size(str, str1, "calloc", i);
 		free(str);
 		free(str1);
 	}
@@ -318,20 +353,318 @@ int main(int argc, char *argv[])
 		free(str);
 		free(str1);
 	}
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
 
 	printf ("\n\U00002B50------Pruebas IsAlNum------\U00002B50\n");
 	i = 0;
-	while (i ++ < 5)
+	while (i ++ < cantidad_pruebas)
 	{
-		str = (char *)ft_calloc(20, 10);
-		str1 = (char *)calloc(20, 10);
-		ft_check_str(str, str1, "calloc", i);
-		ft_check_size(str, str1, "calloc", i);
+		random = rand () % 127;
+		ft_check_is(ft_isalnum(random), isalnum(random), "isalnum", i, random);
+	}
+
+	//Prueba de rendimiento isalnum
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand () % 127;
+		start = clock();
+		aux = ft_isalnum(random);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = isalnum(random);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_isalnum:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+	printf ("\n\U00002B50------Pruebas IsAlpha------\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand () % 127;
+		ft_check_is(ft_isalpha(random), isalpha(random), "isalpha", i, random);
+	}
+
+	//Prueba de rendimiento isalpha
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand () % 127;
+		start = clock();
+		aux = ft_isalpha(random);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = isalpha(random);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_isalpha:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas IsAcii------\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand () % 256;
+		ft_check_is(ft_isascii(random), __isascii(random), "isacii", i, random);
+	}
+
+	//Prueba de rendimiento isascii
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand () % 256;
+		start = clock();
+		aux = ft_isascii(random);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = __isascii(random);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_isascii:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+	printf ("\n\U00002B50------Pruebas IsDigit-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand () % 127;
+		ft_check_is(ft_isdigit(random), isdigit(random), "isdigit", i, random);
+	}
+
+	//Prueba de rendimiento isdigit
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand () % 127;
+		start = clock();
+		aux = ft_isdigit(random);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = isdigit(random);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_isdigit:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas IsPrint-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand () % 256;
+		ft_check_is(ft_isprint(random), isprint(random), "isprint", i, random);
+	}
+
+	//Prueba de rendimiento isprint
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand () % 256;
+		start = clock();
+		aux = ft_isprint(random);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = isprint(random);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_isprint:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+	printf ("\n\U00002B50------Pruebas Strlen-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		//20 es la longitud maxima de str
+		ft_generate_string(&str, 20, 1);
+		ft_check_int(ft_strlen(str), strlen(str), "strlen", i);
+		free(str);
+	}
+
+	//Prueba de rendimiento strlen
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		ft_generate_string(&str, 20, 1);
+		start = clock();
+		aux = ft_strlen(str);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		aux = strlen(str);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		free(str);
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strlen:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas Memset-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand() % 94 + 32;
+		random1 = rand() % 20;
+
+		str = calloc(22, 1);
+		if (!str)
+			return (1);
+		str1 = calloc(22, 1);
+		if (!str1)
+			return (1);
+		ft_memset(str, random, random1);
+		memset(str1, random, random1);		
+		ft_check_str((char *)str,(char *)str1, "memset", i);
 		free(str);
 		free(str1);
 	}
+
+	//Prueba de rendimiento memset
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	str = calloc(22, 1);
+	if (!str)
+		return (1);
+	str1 = calloc(22, 1);
+	if (!str1)
+		return (1);
+	while (i ++ < 200000)
+	{
+		random = rand() % 94 + 32;
+		random1 = rand() % 20;
+		start = clock();
+		ft_memset(str, random, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		memset(str1, random, random1);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+	}
+	free(str);
+	free(str1);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memset:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas Bzero-----\U00002B50\n");
+	i = 0;
+	while (i ++ < 5)
+	{
+		random = rand() % 20;
+		random1 = rand() % 10 + 1;
+
+		str = malloc(random);
+		if (!str)
+			return (1);
+		str1 = malloc(random);
+		if (!str1)
+			return (1);
+		ft_bzero(str, random1);
+		bzero(str1, random1);		
+		ft_check_str((char *)str,(char *)str1, "bzero", i);
+		free(str);
+		free(str1);
+	}
+
+	//Prueba de rendimiento bzero
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand() % 20;
+		random1 = rand() % 10 + 1;
+
+		str = malloc(random);
+		if (!str)
+			return (1);
+		str1 = malloc(random);
+		if (!str1)
+			return (1);
+		start = clock();
+		ft_bzero(str, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		bzero(str, random1);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		free(str);
+		free(str1);
+	}
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_bzero:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand() % 20;
+		random1 = rand() % 20;
+
+		ft_generate_string(&str, random, 1);
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		ft_memcpy(str1, str, random1);
+		memcpy(str2, str, random1);	
+		ft_check_str((char *)str1,(char *)str2, "memcpy", i);
+		free(str);
+		free(str1);
+		free(str2);
+	}
+
+	//Prueba de rendimiento memcpy
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand() % 20;
+		random1 = rand() % 20;
+
+		ft_generate_string(&str, random, 1);
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		start = clock();
+		ft_memcpy(str1, str, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		memcpy(str2, str, random1);	
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		free(str);
+		free(str1);
+		free(str2);
+	}
+
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
 
 
 
