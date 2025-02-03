@@ -525,10 +525,10 @@ int main(int argc, char *argv[])
 		random = rand() % 94 + 32;
 		random1 = rand() % 20;
 
-		str = calloc(22, 1);
+		str = calloc(25, 1);
 		if (!str)
 			return (1);
-		str1 = calloc(22, 1);
+		str1 = calloc(25, 1);
 		if (!str1)
 			return (1);
 		ft_memset(str, random, random1);
@@ -565,56 +565,6 @@ int main(int argc, char *argv[])
 	free(str1);
 	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memset:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
-
-	printf ("\n\U00002B50------Pruebas Bzero-----\U00002B50\n");
-	i = 0;
-	while (i ++ < 5)
-	{
-		random = rand() % 20;
-		random1 = rand() % 10 + 1;
-
-		str = malloc(random);
-		if (!str)
-			return (1);
-		str1 = malloc(random);
-		if (!str1)
-			return (1);
-		ft_bzero(str, random1);
-		bzero(str1, random1);		
-		ft_check_str((char *)str,(char *)str1, "bzero", i);
-		free(str);
-		free(str1);
-	}
-
-	//Prueba de rendimiento bzero
-	i = 0;
-	cpu_time_used_ft = 0;
-	cpu_time_used = 0;
-	while (i ++ < 200000)
-	{
-		random = rand() % 20;
-		random1 = rand() % 10 + 1;
-
-		str = malloc(random);
-		if (!str)
-			return (1);
-		str1 = malloc(random);
-		if (!str1)
-			return (1);
-		start = clock();
-		ft_bzero(str, random1);
-		end = clock();
-		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
-		start = clock();
-		bzero(str, random1);
-		end = clock();
-		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
-		free(str);
-		free(str1);
-	}
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_bzero:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
-
-
 	printf ("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
 	i = 0;
 	while (i ++ < cantidad_pruebas)
@@ -627,6 +577,9 @@ int main(int argc, char *argv[])
 		str2 = calloc(30, 1);
 		if (!str1 || !str2)
 			return (1);
+		if (strlen(str) < random1)
+			random1 = strlen(str);
+		printf("%s %ld", str, strlen(str));
 		ft_memcpy(str1, str, random1);
 		memcpy(str2, str, random1);	
 		ft_check_str((char *)str1,(char *)str2, "memcpy", i);
@@ -636,7 +589,7 @@ int main(int argc, char *argv[])
 	}
 
 	//Prueba de rendimiento memcpy
-	i = 0;
+	/*i = 0;
 	cpu_time_used_ft = 0;
 	cpu_time_used = 0;
 	while (i ++ < 200000)
@@ -662,7 +615,7 @@ int main(int argc, char *argv[])
 		free(str2);
 	}
 
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);*/
 
 
 
