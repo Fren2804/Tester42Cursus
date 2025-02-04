@@ -325,14 +325,26 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < 5)
 	{
-		random = rand () % 100;
-		random1 = rand () % 100;
+		random = rand () % 100 + 1;
+		random1 = rand () % 100 + 1;
 		str = (char *)ft_calloc(random, random1);
 		str1 = (char *)calloc(random, random1);
 		ft_check_str(str, str1, "calloc", i);
 		free(str);
 		free(str1);
 	}
+	str = (char *)ft_calloc(0, 0);
+	str1 = (char *)calloc(0, 0);
+	ft_check_str(str, str1, "calloc", i);
+	i ++;
+	free(str);
+	free(str1);
+
+	str = (char *)ft_calloc(~(unsigned long)0, 1000);
+	str1 = (char *)calloc(~(unsigned long)0, 1000);
+	ft_check_str(str, str1, "calloc", i);
+	free(str);
+	free(str1);
 
 	//Prueba de rendimiento calloc
 	i = 0;
@@ -569,7 +581,7 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < cantidad_pruebas)
 	{
-		random = rand() % 20;
+		random = rand() % 20 + 1;
 		random1 = rand() % 20;
 
 		ft_generate_string(&str, random, 1);
@@ -579,7 +591,6 @@ int main(int argc, char *argv[])
 			return (1);
 		if (strlen(str) < random1)
 			random1 = strlen(str);
-		printf("%s %ld", str, strlen(str));
 		ft_memcpy(str1, str, random1);
 		memcpy(str2, str, random1);	
 		ft_check_str((char *)str1,(char *)str2, "memcpy", i);
