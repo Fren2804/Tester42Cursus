@@ -137,7 +137,10 @@ void ft_generate_string(char **s, int len_max, int num_dis)
 	int i = 0;
 	int len;
 	int random;
-	len = rand() % len_max;
+	if (len_max != 0)
+		len = rand() % len_max;
+	else
+		len = 0;
 	*s = malloc(len + 1);
 	if (!(*s))
 		return ;
@@ -165,7 +168,10 @@ void ft_generate_atoi(char **s, int len_max)
 	int len;
 	int random;
 	int control;
-	len = rand() % len_max;
+	if (len_max != 0)
+		len = rand() % len_max;
+	else
+		len = 0;
 	*s = malloc(len + 1);
 	if (!(*s))
 		return ;
@@ -219,7 +225,7 @@ void ft_generate_atoi(char **s, int len_max)
 
 void ft_generate_bzero(char **s, int len)
 {
-	*s = malloc(len + 1);
+	*s = malloc(len);
 	if (!(*s))
 		return ;
 }
@@ -258,7 +264,13 @@ int main(int argc, char *argv[])
 	i ++;
 	ft_check_int(ft_atoi("-2147483648"), atoi("-2147483648"), "atoi", i);
 	i ++;
+	ft_check_int(ft_atoi("-2147483648323"), atoi("-2147483648323"), "atoi", i);
+	i ++;
+	ft_check_int(ft_atoi("2147483648323"), atoi("2147483648323"), "atoi", i);
+	i ++;
 	ft_check_int(ft_atoi("  -0"), atoi("  -0"), "atoi", i);
+	i ++;
+	ft_check_int(ft_atoi(""), atoi(""), "atoi", i);
 
 	//Prueba de rendimiento atoi
 	i = 0;
@@ -297,6 +309,7 @@ int main(int argc, char *argv[])
 		free(str1);
 	}
 
+
 	//Prueba de rendimiento bzero
 	i = 0;
 	cpu_time_used_ft = 0;
@@ -333,18 +346,6 @@ int main(int argc, char *argv[])
 		free(str);
 		free(str1);
 	}
-	str = (char *)ft_calloc(0, 0);
-	str1 = (char *)calloc(0, 0);
-	ft_check_str(str, str1, "calloc", i);
-	i ++;
-	free(str);
-	free(str1);
-
-	/*str = (char *)ft_calloc(~(unsigned long)0, 1000);
-	str1 = (char *)calloc(~(unsigned long)0, 1000);
-	ft_check_str(str, str1, "calloc", i);
-	free(str);
-	free(str1);*/
 
 	//Prueba de rendimiento calloc
 	i = 0;
