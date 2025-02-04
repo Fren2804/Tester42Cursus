@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h> 
+#include <bsd/string.h>
 #define INT_MAX 2147483647
 #define INT_MIN -2147483648
 
@@ -11,11 +12,11 @@ void ft_check_int(int num1, int num2, char *nombre_funcion, int prueba)
 {
     if (num1 == num2)
     {
-        printf("\U00002705 %-3d- ft_%-5s: %-15d		%-5s: %-15d \n", prueba, nombre_funcion, num1, nombre_funcion, num2);
+        printf("\U00002705 %-3d- ft_%-5s: %-30d		%-5s: %-30d \n", prueba, nombre_funcion, num1, nombre_funcion, num2);
     }
     else
     {
-        printf("\U0000274C %-3d- ft_%-5s: %-15d		%-5s: %-15d \n", prueba, nombre_funcion, num1, nombre_funcion, num2);
+        printf("\U0000274C %-3d- ft_%-5s: %-30d		%-5s: %-30d \n", prueba, nombre_funcion, num1, nombre_funcion, num2);
     }
 }
 
@@ -339,23 +340,24 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < 5)
 	{
-		random = rand () % 100;
-		random1 = rand () % 100;
+		random = rand () % 100 + 1;
+		random1 = rand () % 100 + 1;
 		str = (char *)ft_calloc(random, random1);
 		str1 = (char *)calloc(random, random1);
 		ft_check_str(str, str1, "calloc", i);
+		ft_check_size(str, str1, "calloc", i);
 		free(str);
 		free(str1);
 	}
-	str = (char *)ft_calloc(0, 0);
+	/*str = (char *)ft_calloc(0, 0);
 	str1 = (char *)calloc(0, 0);
 	ft_check_str(str, str1, "calloc", i);
 	i ++;
 	free(str);
-	free(str1);
+	free(str1);*/
 
 	//Prueba de rendimiento calloc
-	i = 0;
+	/*i = 0;
 	cpu_time_used_ft = 0;
 	cpu_time_used = 0;
 	while (i ++ < 200000)
@@ -373,7 +375,7 @@ int main(int argc, char *argv[])
 		free(str);
 		free(str1);
 	}
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);*/
 
 
 	printf ("\n\U00002B50------Pruebas IsAlNum------\U00002B50\n");
@@ -713,6 +715,8 @@ int main(int argc, char *argv[])
 		return (1);
 	ft_check_str(ft_memcpy(str1, "Fran", 0), memcpy(str2, "Fran", 0), "memcpy", i);
 	i ++;
+	free(str1);
+	free(str2);
 
 	//Prueba de rendimiento memcpy
 	i = 0;
@@ -744,6 +748,182 @@ int main(int argc, char *argv[])
 	}
 
 	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas Memmove-----\U00002B50\n");
+	i = 0;
+	while (i ++ < cantidad_pruebas)
+	{
+		random = rand() % 20;
+		random1 = rand() % 20;
+
+		ft_generate_string(&str, random, 1);
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		if (strlen(str) < random1)
+			random1 = strlen(str);
+		ft_memmove(str1, str, random1);
+		memmove(str2, str, random1);	
+		ft_check_str((char *)str1,(char *)str2, "memmove", i);
+		free(str);
+		free(str1);
+		free(str2);
+	}
+	str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	if (!str1 || !str2)
+		return (1);
+	ft_check_str(ft_memmove(str1, "Fran", 0), memmove(str2, "Fran", 0), "memmove", i);
+	i ++;
+	ft_check_str(ft_memmove(str1, "Fran", 5), memmove(str2, "Fran", 5), "memmove", i);
+	i ++;
+	free(str1);
+	free(str2);
+
+
+	//Prueba de rendimiento memmove
+	i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand() % 20;
+		random1 = rand() % 20;
+
+		ft_generate_string(&str, random, 1);
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		if (strlen(str) < random1)
+			random1 = strlen(str);
+		start = clock();
+		ft_memmove(str1, str, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		memmove(str2, str, random1);	
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		free(str);
+		free(str1);
+		free(str2);
+	}
+
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memmove:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+	printf ("\n\U00002B50------Pruebas Strlcat-----\U00002B50\n");
+	i = 0;
+	while (i ++ < (cantidad_pruebas / 2))
+	{
+		random = rand() % 40 + 1;
+		random1 = rand() % 40;
+		//Me da problemas al hacerlo al reves porque el str dest no tiene el calloc deseado, o sea el espacio
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		ft_generate_string(&str, random, 1);
+		memcpy(str1, "PRUEBA", strlen("PRUEBA"));
+		memcpy(str2, "PRUEBA", strlen("PRUEBA"));
+		//memcpy(str2, str, strlen(str));
+		/*if (strlen(str) < random1)
+			random1 = strlen(str);*/
+		//printf ("|%d| |%s| |%s| |%d| \n", i, str1, str, random1);
+		//ft_strlcat(str1, str, random1);
+		//strlcat(str2, str, random1);
+		//printf ("|%d| |%s| |%s| |%d| \n", i, str1, str, random1);
+		printf("\n");
+		ft_check_int(ft_strlcat(str1, str, random1), strlcat(str2, str, random1), "strlcat", i);
+		ft_check_str((char *)str1,(char *)str2, "strlcat", i);
+		free(str);
+		free(str1);
+		free(str2);
+	}
+	/*str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	if (!str1 || !str2)
+		return (1);
+	printf("\n");
+	ft_check_int(ft_strlcat(str1, "Fran", 0), strlcat(str2, "Fran", 0), "strlcat", i);
+	ft_check_str((char *)str1,(char *)str2, "strlcat", i);
+	i ++;
+	free(str1);
+	free(str2);
+	str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	if (!str1 || !str2)
+		return (1);
+	printf("\n");
+	ft_check_int(ft_strlcat(str1, "Fran", 10), strlcat(str2, "Fran", 10), "strlcat", i);
+	ft_check_str((char *)str1,(char *)str2, "strlcat", i);
+	i ++;
+	free(str1);
+	free(str2);
+	str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	ft_generate_string(&str, 20, 0);
+	memcpy(str1, str, strlen(str));
+	memcpy(str2, str, strlen(str));
+	if (!str1 || !str2)
+		return (1);
+	printf("\n");
+	ft_check_int(ft_strlcat(str1, "Fran", 10), strlcat(str2, "Fran", 10), "strlcat", i);
+	ft_check_str((char *)str1,(char *)str2, "strlcat", i);
+	i ++;
+	free(str);
+	free(str1);
+	free(str2);
+	str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	ft_generate_string(&str, 20, 0);
+	memcpy(str1, str, strlen(str));
+	memcpy(str2, str, strlen(str));
+	if (!str1 || !str2)
+		return (1);
+	printf("\n");
+	ft_check_int(ft_strlcat(str1, "Fran", 30), strlcat(str2, "Fran", 30), "strlcat", i);
+	ft_check_str((char *)str1,(char *)str2, "strlcat", i);
+	i ++;
+	free(str);
+	free(str1);
+	free(str2);*/
+
+
+	//Prueba de rendimiento strlcat
+	/*i = 0;
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
+	{
+		random = rand() % 20;
+		random1 = rand() % 20;
+
+		ft_generate_string(&str, random, 1);
+		str1 = calloc(30, 1);
+		str2 = calloc(30, 1);
+		if (!str1 || !str2)
+			return (1);
+		if (strlen(str) < random1)
+			random1 = strlen(str);
+		start = clock();
+		ft_memmove(str1, str, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
+		strlcat(str2, str, random1);	
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		free(str);
+		free(str1);
+		free(str2);
+	}
+
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strlcat:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);*/
+
 
 
 

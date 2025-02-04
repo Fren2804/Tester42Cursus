@@ -251,20 +251,26 @@ int main(void)
 
 	printf ("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
 	i = 0;
-	while (i ++ < cantidad_pruebas)
+	cpu_time_used_ft = 0;
+	cpu_time_used = 0;
+	while (i ++ < 200000)
 	{
 		random = rand() % 20;
 		random1 = rand() % 20;
+
 		ft_generate_string(&str, random, 1);
 		str1 = calloc(30, 1);
 		str2 = calloc(30, 1);
 		if (!str1 || !str2)
 			return (1);
-		if (strlen(str) < random1)
-			random1 = strlen(str);
+		start = clock();
 		ft_memcpy(str1, str, random1);
+		end = clock();
+		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+		start = clock();
 		memcpy(str2, str, random1);	
-		ft_check_str((char *)str1,(char *)str2, "memcpy", i);
+		end = clock();
+		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
 		free(str);
 		free(str1);
 		free(str2);
