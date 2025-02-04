@@ -247,6 +247,7 @@ int main(int argc, char *argv[])
 	clock_t start, end;
     double cpu_time_used_ft;
 	double cpu_time_used;
+	char	*long_str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere sapien sit amet rutrum mollis. Praesent non odio feugiat, placerat erat vel, ultrices metus. Curabitur eget ante vitae nisi vehicula accumsan. Ut eu dictum magna, sed ullamcorper metus. Quisque vehicula finibus dui, gravida tempus ante gravida eu. Etiam elementum turpis eget dui accumsan cursus. Aliquam sed cursus nulla. Duis suscipit nulla sed scelerisque commodo. Donec rutrum arcu dolor, in tempor odio ornare non. Ut finibus enim sit amet dictum rutrum. Aenean vitae placerat ex, non vehicula mauris. Quisque et faucibus dolor. Nunc lacus est, placerat sit amet nunc at, consectetur porta dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam eget neque in arcu congue consectetur ac at diam. Proin porttitor sapien vel consequat efficitur. Morbi mauris mi, aliquet vitae porta sit amet, ultricies et urna. Sed porta, turpis dictum suscipit tincidunt, arcu massa vestibulum ante, ut ullamcorper justo nisi quis enim. Praesent tempor at lacus id molestie. Ut nec magna elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut lacinia vestibulum facilisis. Suspendisse quis sem ac diam iaculis lacinia in ut odio. Pellentesque tellus dolor, laoreet ut blandit venenatis, pulvinar sed turpis. Praesent et diam ut dui eleifend pulvinar. Ut eget nunc a orci aliquam eleifend. Donec fermentum vulputate metus eu ultrices. Nunc nec consectetur libero, non iaculis tortor. In feugiat rutrum laoreet. Duis in suscipit orci. Aliquam felis eros, porttitor tincidunt suscipit ac, commodo quis augue. Mauris aliquet mauris a nunc ullamcorper auctor at varius erat. Sed dapibus libero et arcu eleifend ornare nec quis magna. Aenean tincidunt felis efficitur, tincidunt risus quis, pharetra lacus. Pellentesque feugiat ornare lectus, accumsan scelerisque nisl accumsan in. Morbi felis nulla, volutpat sed pellentesque a, cursus ac quam. Sed dictum diam ut ligula dapibus, in scelerisque libero dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacinia tortor ut tortor vestibulum aliquet. Quisque ipsum nunc, pretium sed porta in, semper ut dolor. Nullam tincidunt odio et vulputate convallis. Integer quis tincidunt nulla. Quisque at mauris vel augue convallis elementum pharetra vitae neque. Curabitur interdum turpis sed ex porta, id tincidunt neque varius. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas vel elit et dui convallis imperdiet. Pellentesque egestas ante magna, at ultrices quam aliquet sed. Donec vestibulum velit ac congue ultrices. Ut venenatis metus molestie consectetur elementum. Mauris vitae nibh eget felis tincidunt congue ut sed orci. Nunc tempor mollis quam id sodales. Mauris est nibh, ullamcorper ac condimentum a, gravida at augue. Maecenas lacinia odio porttitor est posuere porttitor. Vestibulum eu laoreet ante. Sed ut rhoncus diam. In hac habitasse platea dictumst. Mauris in tellus a nulla condimentum tristique. Cras venenatis consectetur nisl nec laoreet. Aenean quis orci facilisis, elementum leo nec, pulvinar enim. Nullam accumsan dui pulvinar turpis ultrices, iaculis porttitor sapien ornare. Mauris sem enim, finibus vitae rutrum ac, ullamcorper nec quam. Donec sed ipsum quis elit tempus dignissim. Sed eu dui magna. Donec ac blandit massa. Donec tempus consequat maximus. Sed lorem arcu, sollicitudin pulvinar auctor vel, eleifend quis mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed lacus ligula. Nunc id mollis lorem. Aliquam erat volutpat. Nunc volutpat mauris non felis venenatis, at varius augue mollis. Etiam maximus magna mauris, id mollis eros semper ut. Cras maximus sem vitae venenatis sollicitudin. Nullam porttitor ac nisi sed molestie. Nulla aliquam nec magna eu convallis. Proin eget sapien vel erat pulvinar malesuada. Quisque laoreet mauris ipsum, fermentum porta nunc venenatis eu. Suspendisse potenti. Cras quis interdum diam. Integer eu lacus quis neque feugiat rhoncus. Vestibulum ac magna eleifend, fringilla ligula ac, tristique nibh. Mauris eros lorem, venenatis eu erat at, pulvinar consequat urna. Nulla sit amet enim tempus, fermentum justo non, lacinia arcu. Etiam at metus dapibus, vehicula neque eu, blandit odio. Duis odio augue, pharetra nec felis sed, blandit tincidunt metus. Nam eu ante nunc. Aenean mi diam, suscipit at ex quis, rhoncus ornare metus. Morbi dapibus vulputate enim nec tempus. Maecenas laoreet molestie risus sit amet gravida. In condimentum turpis augue, a scelerisque dolor aliquam nec. Sed eget ornare ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus eget blandit ipsum. Proin fringilla pharetra augue eget iaculis. Nullam pulvinar odio eget facilisis volutpat. Ut varius ullamcorper tristique. Nunc mattis leo quis elementum vehicula. Sed facilisis, magna vel dignissim pulvinar, purus nisi accumsan lacus, eu maximus massa nulla eget magna. Maecenas feugiat odio id massa mollis tristique. Nullam imperdiet mauris a magna vestibulum scelerisque. Fusce nisi mi, dictum at odio sed, ullamcorper volutpat lectus. Sed lobortis tincidunt dui, in cursus enim congue non. Ut euismod vel justo non dignissim. Mauris vitae ex vestibulum, lobortis nibh vitae, pellentesque urna. Phasellus gravida sagittis varius. Vivamus tempor ex eros, ac tincidunt nibh condimentum a. Vestibulum sed tortor ac orci semper dignissim in non velit. Praesent in fermentum leo. Nullam porttitor nisl augue, a euismod ante vulputate at. Maecenas quis felis massa. Nunc sagittis interdum turpis ut tempor. Praesent sed efficitur velit. Vestibulum gravida nulla lectus, pretium euismod turpis auctor ac. Vivamus nunc sem, blandit non enim sed, tristique sagittis urna. Cras sit amet nibh vitae ipsum luctus luctus. Cras consectetur dui nec sodales condimentum. Nam fringilla mi quis accumsan auctor. Integer ultricies euismod quam a accumsan. Praesent fermentum, magna sed ornare convallis, justo enim sollicitudin neque, in semper metus orci at nibh. Proin commodo fermentum eros, consectetur ornare velit ultrices porta. Mauris eu mattis arcu. Pellentesque eu orci rutrum, elementum eros non, vulputate lacus. Aenean sed vulputate lectus. Curabitur mollis aliquam ultrices. Proin sit amet nulla est. Etiam metus urna, gravida ac varius a, dapibus in purus. Donec iaculis diam id pellentesque vulputate. Sed tincidunt, sapien sed fermentum condimentum, justo mi sollicitudin neque, sit amet lacinia orci odio eget mi. Donec hendrerit convallis neque, at rutrum lectus elementum in. In hac habitasse platea dictumst. Nulla pretium enim sit amet faucibus convallis. Aliquam id luctus ex. Quisque quis auctor sem, vitae interdum elit. Nam blandit vehicula est nec interdum. Aenean id cursus mi. Nullam volutpat cursus neque, id commodo elit finibus non. Ut vitae sollicitudin nibh. Phasellus et mauris dapibus, venenatis odio ut, suscipit orci. Vestibulum tristique quam a tellus tempus consectetur. Morbi eu arcu dui. Morbi congue ligula in placerat pharetra. Duis gravida metus nec sagittis feugiat. Vestibulum pellentesque mattis metus, at eleifend leo hendrerit sed. Nam pretium leo dolor, vel facilisis leo mollis id. Cras eu laoreet ante. Pellentesque suscipit tortor a ex sodales, vitae posuere ligula tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis at elit sit amet lectus feugiat finibus. Donec in arcu sit amet lacus imperdiet dapibus ut vehicula justo. Vestibulum at lectus lobortis, molestie nisl quis, hendrerit felis. Ut dapibus ornare ligula vel mattis. In id nulla nisl. Aenean tortor leo, sagittis sed ante in, varius vulputate est. Phasellus egestas nisi ut tortor vulputate mattis. Proin id nibh ultricies, vulputate ex sed, aliquet nibh. Praesent tincidunt massa et sapien vestibulum volutpat. Cras convallis ornare purus, ut accumsan tortor tincidunt eget. Curabitur hendrerit eros in turpis ultricies vestibulum. Aliquam dictum risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere sapien sit amet rutrum mollis. Praesent non odio feugiat, placerat erat vel, ultrices metus. Curabitur eget ante vitae nisi vehicula accumsan. Ut eu dictum magna, sed ullamcorper metus. Quisque vehicula finibus dui, gravida tempus ante gravida eu. Etiam elementum turpis eget dui accumsan cursus. Aliquam sed cursus nulla. Duis suscipit nulla sed scelerisque commodo. Donec rutrum arcu dolor, in tempor odio ornare non. Ut finibus enim sit amet dictum rutrum. Aenean vitae placerat ex, non vehicula mauris. Quisque et faucibus dolor. Nunc lacus est, placerat sit amet nunc at, consectetur porta dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam eget neque in arcu congue consectetur ac at diam. Proin porttitor sapien vel consequat efficitur. Morbi mauris mi, aliquet vitae porta sit amet, ultricies et urna. Sed porta, turpis dictum suscipit tincidunt, arcu massa vestibulum ante, ut ullamcorper justo nisi quis enim. Praesent tempor at lacus id molestie. Ut nec magna elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut lacinia vestibulum facilisis. Suspendisse quis sem ac diam iaculis lacinia in ut odio. Pellentesque tellus dolor, laoreet ut blandit venenatis, pulvinar sed turpis. Praesent et diam ut dui eleifend pulvinar. Ut eget nunc a orci aliquam eleifend. Donec fermentum vulputate metus eu ultrices. Nunc nec consectetur libero, non iaculis tortor. In feugiat rutrum laoreet. Duis in suscipit orci. Aliquam felis eros, porttitor tincidunt suscipit ac, commodo quis augue. Mauris aliquet mauris a nunc ullamcorper auctor at varius erat. Sed dapibus libero et arcu eleifend ornare nec quis magna. Aenean tincidunt felis efficitur, tincidunt risus quis, pharetra lacus. Pellentesque feugiat ornare lectus, accumsan scelerisque nisl accumsan in. Morbi felis nulla, volutpat sed pellentesque a, cursus ac quam. Sed dictum diam ut ligula dapibus, in scelerisque libero dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed lacinia tortor ut tortor vestibulum aliquet. Quisque ipsum nunc, pretium sed porta in, semper ut dolor. Nullam tincidunt odio et vulputate convallis. Integer quis tincidunt nulla. Quisque at mauris vel augue convallis elementum pharetra vitae neque. Curabitur interdum turpis sed ex porta, id tincidunt neque varius. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas vel elit et dui convallis imperdiet. Pellentesque egestas ante magna, at ultrices quam aliquet sed. Donec vestibulum velit ac congue ultrices. Ut venenatis metus molestie consectetur elementum. Mauris vitae nibh eget felis tincidunt congue ut sed orci. Nunc tempor mollis quam id sodales. Mauris est nibh, ullamcorper ac condimentum a, gravida at augue. Maecenas lacinia odio porttitor est posuere porttitor. Vestibulum eu laoreet ante. Sed ut rhoncus diam. In hac habitasse platea dictumst. Mauris in tellus a nulla condimentum tristique. Cras venenatis consectetur nisl nec laoreet. Aenean quis orci facilisis, elementum leo nec, pulvinar enim. Nullam accumsan dui pulvinar turpis ultrices, iaculis porttitor sapien ornare. Mauris sem enim, finibus vitae rutrum ac, ullamcorper nec quam. Donec sed ipsum quis elit tempus dignissim. Sed eu dui magna. Donec ac blandit massa. Donec tempus consequat maximus. Sed lorem arcu, sollicitudin pulvinar auctor vel, eleifend quis mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed lacus ligula. Nunc id mollis lorem. Aliquam erat volutpat. Nunc volutpat mauris non felis venenatis, at varius augue mollis. Etiam maximus magna mauris, id mollis eros semper ut. Cras maximus sem vitae venenatis sollicitudin. Nullam porttitor ac nisi sed molestie. Nulla aliquam nec magna eu convallis. Proin eget sapien vel erat pulvinar malesuada. Quisque laoreet mauris ipsum, fermentum porta nunc venenatis eu. Suspendisse potenti. Cras quis interdum diam. Integer eu lacus quis neque feugiat rhoncus. Vestibulum ac magna eleifend, fringilla ligula ac, tristique nibh. Mauris eros lorem, venenatis eu erat at, pulvinar consequat urna. Nulla sit amet enim tempus, fermentum justo non, lacinia arcu. Etiam at metus dapibus, vehicula neque eu, blandit odio. Duis odio augue, pharetra nec felis sed, blandit tincidunt metus. Nam eu ante nunc. Aenean mi diam, suscipit at ex quis, rhoncus ornare metus. Morbi dapibus vulputate enim nec tempus. Maecenas laoreet molestie risus sit amet gravida. In condimentum turpis augue, a scelerisque dolor aliquam nec. Sed eget ornare ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus eget blandit ipsum. Proin fringilla pharetra augue eget iaculis. Nullam pulvinar odio eget facilisis volutpat. Ut varius ullamcorper tristique. Nunc mattis leo quis elementum vehicula. Sed facilisis, magna vel dignissim pulvinar, purus nisi accumsan lacus, eu maximus massa nulla eget magna. Maecenas feugiat odio id massa mollis tristique. Nullam imperdiet mauris a magna vestibulum scelerisque. Fusce nisi mi, dictum at odio sed, ullamcorper volutpat lectus. Sed lobortis tincidunt dui, in cursus enim congue non. Ut euismod vel justo non dignissim. Mauris vitae ex vestibulum, lobortis nibh vitae, pellentesque urna. Phasellus gravida sagittis varius. Vivamus tempor ex eros, ac tincidunt nibh condimentum a. Vestibulum sed tortor ac orci semper dignissim in non velit. Praesent in fermentum leo. Nullam porttitor nisl augue, a euismod ante vulputate at. Maecenas quis felis massa. Nunc sagittis interdum turpis ut tempor. Praesent sed efficitur velit. Vestibulum gravida nulla lectus, pretium euismod turpis auctor ac. Vivamus nunc sem, blandit non enim sed, tristique sagittis urna. Cras sit amet nibh vitae ipsum luctus luctus. Cras consectetur dui nec sodales condimentum. Nam fringilla mi quis accumsan auctor. Integer ultricies euismod quam a accumsan. Praesent fermentum, magna sed ornare convallis, justo enim sollicitudin neque, in semper metus orci at nibh. Proin commodo fermentum eros, consectetur ornare velit ultrices porta. Mauris eu mattis arcu. Pellentesque eu orci rutrum, elementum eros non, vulputate lacus. Aenean sed vulputate lectus. Curabitur mollis aliquam ultrices. Proin sit amet nulla est. Etiam metus urna, gravida ac varius a, dapibus in purus. Donec iaculis diam id pellentesque vulputate. Sed tincidunt, sapien sed fermentum condimentum, justo mi sollicitudin neque, sit amet lacinia orci odio eget mi. Donec hendrerit convallis neque, at rutrum lectus elementum in. In hac habitasse platea dictumst. Nulla pretium enim sit amet faucibus convallis. Aliquam id luctus ex. Quisque quis auctor sem, vitae interdum elit. Nam blandit vehicula est nec interdum. Aenean id cursus mi. Nullam volutpat cursus neque, id commodo elit finibus non. Ut vitae sollicitudin nibh. Phasellus et mauris dapibus, venenatis odio ut, suscipit orci. Vestibulum tristique quam a tellus tempus consectetur. Morbi eu arcu dui. Morbi congue ligula in placerat pharetra. Duis gravida metus nec sagittis feugiat. Vestibulum pellentesque mattis metus, at eleifend leo hendrerit sed. Nam pretium leo dolor, vel facilisis leo mollis id. Cras eu laoreet ante. Pellentesque suscipit tortor a ex sodales, vitae posuere ligula tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis at elit sit amet lectus feugiat finibus. Donec in arcu sit amet lacus imperdiet dapibus ut vehicula justo. Vestibulum at lectus lobortis, molestie nisl quis, hendrerit felis. Ut dapibus ornare ligula vel mattis. In id nulla nisl. Aenean tortor leo, sagittis sed ante in, varius vulputate est. Phasellus egestas nisi ut tortor vulputate mattis. Proin id nibh ultricies, vulputate ex sed, aliquet nibh. Praesent tincidunt massa et sapien vestibulum volutpat. Cras convallis ornare purus, ut accumsan tortor tincidunt eget. Curabitur hendrerit eros in turpis ultricies vestibulum. Aliquam dictum risus.";
 
 	cantidad_pruebas = 100;
 	srand(time(NULL));
@@ -382,6 +383,32 @@ int main(int argc, char *argv[])
 		random = rand () % 127;
 		ft_check_is(ft_isalnum(random), isalnum(random), "isalnum", i, random);
 	}
+	ft_check_is(ft_isalnum(-47), isalnum(-47), "isalnum", i, -47);
+	i ++;
+	ft_check_is(ft_isalnum(47), isalnum(47), "isalnum", i, 47);
+	i ++;
+	ft_check_is(ft_isalnum(48), isalnum(48), "isalnum", i, 48);
+	i ++;
+	ft_check_is(ft_isalnum(57), isalnum(57), "isalnum", i, 57);
+	i ++;
+	ft_check_is(ft_isalnum(58), isalnum(58), "isalnum", i, 58);
+	i ++;
+	ft_check_is(ft_isalnum(64), isalnum(64), "isalnum", i, 64);
+	i ++;
+	ft_check_is(ft_isalnum(65), isalnum(65), "isalnum", i, 65);
+	i ++;
+	ft_check_is(ft_isalnum(90), isalnum(90), "isalnum", i, 90);
+	i ++;
+	ft_check_is(ft_isalnum(91), isalnum(91), "isalnum", i, 91);
+	i ++;
+	ft_check_is(ft_isalnum(96), isalnum(96), "isalnum", i, 96);
+	i ++;
+	ft_check_is(ft_isalnum(97), isalnum(97), "isalnum", i, 97);
+	i ++;
+	ft_check_is(ft_isalnum(122), isalnum(122), "isalnum", i, 122);
+	i ++;
+	ft_check_is(ft_isalnum(123), isalnum(123), "isalnum", i, 123);
+
 
 	//Prueba de rendimiento isalnum
 	i = 0;
@@ -408,6 +435,23 @@ int main(int argc, char *argv[])
 		random = rand () % 127;
 		ft_check_is(ft_isalpha(random), isalpha(random), "isalpha", i, random);
 	}
+	ft_check_is(ft_isalpha(-64), isalpha(-64), "isalpha", i, -64);
+	i ++;
+	ft_check_is(ft_isalpha(64), isalpha(64), "isalpha", i, 64);
+	i ++;
+	ft_check_is(ft_isalpha(65), isalpha(65), "isalpha", i, 65);
+	i ++;
+	ft_check_is(ft_isalpha(90), isalpha(90), "isalpha", i, 90);
+	i ++;
+	ft_check_is(ft_isalpha(91), isalpha(91), "isalpha", i, 91);
+	i ++;
+	ft_check_is(ft_isalpha(96), isalpha(96), "isalpha", i, 96);
+	i ++;
+	ft_check_is(ft_isalpha(97), isalpha(97), "isalpha", i, 97);
+	i ++;
+	ft_check_is(ft_isalpha(122), isalpha(122), "isalpha", i, 122);
+	i ++;
+	ft_check_is(ft_isalpha(123), isalpha(123), "isalpha", i, 123);
 
 	//Prueba de rendimiento isalpha
 	i = 0;
@@ -432,9 +476,21 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < cantidad_pruebas)
 	{
-		random = rand () % 256;
+		random = rand () % 255;
 		ft_check_is(ft_isascii(random), __isascii(random), "isacii", i, random);
 	}
+	ft_check_is(ft_isascii(-10), __isascii(-10), "isacii", i, -10);
+	i ++;
+	ft_check_is(ft_isascii(0), __isascii(0), "isacii", i, 0);
+	i ++;
+	ft_check_is(ft_isascii(31), __isascii(31), "isacii", i, 31);
+	i ++;
+	ft_check_is(ft_isascii(32), __isascii(32), "isacii", i, 32);
+	i ++;
+	ft_check_is(ft_isascii(127), __isascii(127), "isacii", i, 127);
+	i ++;
+	ft_check_is(ft_isascii(128), __isascii(128), "isacii", i, 128);
+	i ++;
 
 	//Prueba de rendimiento isascii
 	i = 0;
@@ -461,6 +517,15 @@ int main(int argc, char *argv[])
 		random = rand () % 127;
 		ft_check_is(ft_isdigit(random), isdigit(random), "isdigit", i, random);
 	}
+	ft_check_is(ft_isdigit(-20), isdigit(-20), "isdigit", i, -20);
+	i ++;
+	ft_check_is(ft_isdigit(47), isdigit(47), "isdigit", i, 47);
+	i ++;
+	ft_check_is(ft_isdigit(48), isdigit(48), "isdigit", i, 48);
+	i ++;
+	ft_check_is(ft_isdigit(57), isdigit(57), "isdigit", i, 57);
+	i ++;
+	ft_check_is(ft_isdigit(58), isdigit(58), "isdigit", i, 58);
 
 	//Prueba de rendimiento isdigit
 	i = 0;
@@ -488,6 +553,17 @@ int main(int argc, char *argv[])
 		random = rand () % 256;
 		ft_check_is(ft_isprint(random), isprint(random), "isprint", i, random);
 	}
+	ft_check_is(ft_isprint(-20), isprint(-20), "isprint", i, -20);
+	i ++;
+	ft_check_is(ft_isprint(0), isprint(0), "isprint", i, 0);
+	i ++;
+	ft_check_is(ft_isprint(31), isprint(31), "isprint", i, 31);
+	i ++;
+	ft_check_is(ft_isprint(32), isprint(32), "isprint", i, 32);
+	i ++;
+	ft_check_is(ft_isprint(126), isprint(126), "isprint", i, 126);
+	i ++;
+	ft_check_is(ft_isprint(127), isprint(127), "isprint", i, 127);
 
 	//Prueba de rendimiento isprint
 	i = 0;
@@ -516,6 +592,9 @@ int main(int argc, char *argv[])
 		ft_check_int(ft_strlen(str), strlen(str), "strlen", i);
 		free(str);
 	}
+	ft_check_int(ft_strlen(""), strlen(""), "strlen", i);
+	i ++;
+	ft_check_int(ft_strlen(long_str), strlen(long_str), "strlen", i);
 
 	//Prueba de rendimiento strlen
 	i = 0;
@@ -534,6 +613,14 @@ int main(int argc, char *argv[])
 		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
 		free(str);
 	}
+	start = clock();
+	aux = ft_strlen(long_str);
+	end = clock();
+	cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+	start = clock();
+	aux = strlen(long_str);
+	end = clock();
+	cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
 	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strlen:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
 
@@ -556,6 +643,21 @@ int main(int argc, char *argv[])
 		free(str);
 		free(str1);
 	}
+	str = calloc(25, 1);
+		if (!str)
+			return (1);
+		str1 = calloc(25, 1);
+		if (!str1)
+			return (1);
+	ft_memset(str, 0, 20);
+	memset(str1, 0, 20);		
+	ft_check_str((char *)str,(char *)str1, "memset", i);
+	i ++;
+	ft_memset(str, 20, 0);
+	memset(str1, 20, 0);		
+	ft_check_str((char *)str,(char *)str1, "memset", i);
+	free(str);
+	free(str1);
 
 	//Prueba de rendimiento memset
 	i = 0;
@@ -605,9 +707,15 @@ int main(int argc, char *argv[])
 		free(str1);
 		free(str2);
 	}
+	str1 = calloc(30, 1);
+	str2 = calloc(30, 1);
+	if (!str1 || !str2)
+		return (1);
+	ft_check_str(ft_memcpy(str1, "Fran", 0), memcpy(str2, "Fran", 0), "memcpy", i);
+	i ++;
 
 	//Prueba de rendimiento memcpy
-	/*i = 0;
+	i = 0;
 	cpu_time_used_ft = 0;
 	cpu_time_used = 0;
 	while (i ++ < 200000)
@@ -620,6 +728,8 @@ int main(int argc, char *argv[])
 		str2 = calloc(30, 1);
 		if (!str1 || !str2)
 			return (1);
+		if (strlen(str) < random1)
+			random1 = strlen(str);
 		start = clock();
 		ft_memcpy(str1, str, random1);
 		end = clock();
@@ -633,7 +743,7 @@ int main(int argc, char *argv[])
 		free(str2);
 	}
 
-	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);*/
+	printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 
 
 
