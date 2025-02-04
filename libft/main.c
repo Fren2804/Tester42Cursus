@@ -338,14 +338,20 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < 5)
 	{
-		random = rand () % 100 + 1;
-		random1 = rand () % 100 + 1;
+		random = rand () % 100;
+		random1 = rand () % 100;
 		str = (char *)ft_calloc(random, random1);
 		str1 = (char *)calloc(random, random1);
 		ft_check_str(str, str1, "calloc", i);
 		free(str);
 		free(str1);
 	}
+	str = (char *)ft_calloc(0, 0);
+	str1 = (char *)calloc(0, 0);
+	ft_check_str(str, str1, "calloc", i);
+	i ++;
+	free(str);
+	free(str1);
 
 	//Prueba de rendimiento calloc
 	i = 0;
@@ -353,8 +359,8 @@ int main(int argc, char *argv[])
 	cpu_time_used = 0;
 	while (i ++ < 200000)
 	{
-		random = rand () % 100 + 1;
-		random1 = rand () % 100 + 1;
+		random = rand () % 100;
+		random1 = rand () % 100;
 		start = clock();
 		str = (char *)ft_calloc(random, random1);
 		end = clock();
@@ -582,7 +588,7 @@ int main(int argc, char *argv[])
 	i = 0;
 	while (i ++ < cantidad_pruebas)
 	{
-		random = rand() % 20 + 1;
+		random = rand() % 20;
 		random1 = rand() % 20;
 
 		ft_generate_string(&str, random, 1);
