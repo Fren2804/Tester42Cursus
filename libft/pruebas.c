@@ -229,7 +229,7 @@ void ft_generate_bzero(char **s, int len)
 }
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	int		i;
 	char	*str;
@@ -249,32 +249,7 @@ int main(void)
 	cantidad_pruebas = 100;
 	srand(time(NULL));
 
-	printf ("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
-	i = 0;
-	cpu_time_used_ft = 0;
-	cpu_time_used = 0;
-	while (i ++ < 200000)
-	{
-		random = rand() % 20;
-		random1 = rand() % 20;
-
-		ft_generate_string(&str, random, 1);
-		str1 = calloc(30, 1);
-		str2 = calloc(30, 1);
-		if (!str1 || !str2)
-			return (1);
-		start = clock();
-		ft_memcpy(str1, str, random1);
-		end = clock();
-		cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
-		start = clock();
-		memcpy(str2, str, random1);	
-		end = clock();
-		cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
-		free(str);
-		free(str1);
-		free(str2);
-	}
+	printf("%s %s %d", argv[1], "13", strcmp(argv[1], "13"));
 
 	return (0);
 }
