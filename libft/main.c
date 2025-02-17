@@ -52,24 +52,26 @@ void ft_check_size(void *str1, void *str2, char *nombre_funcion, int prueba)
 	}
 }
 
-void ft_check_buffer(void *buff1, void *buff2, int len, char *nombre_funcion, int prueba)
+void ft_check_buffer(void *buff1, void *buff2, int len, char *nombre_funcion, int prueba, int print)
 {
 	const unsigned char *buf1 = (const unsigned char *)buff1;
 	const unsigned char *buf2 = (const unsigned char *)buff2;
 	if (memcmp(buff1, buff2, len) == 0)
 	{
-		printf("\U00002705 %-3d-Prueba buffer-\n", prueba);
-		for (size_t i = 0; i < len; i ++)
+		printf("\U00002705 %-3d- prueba buffer -\n", prueba);
+		if (print)
 		{
-			printf("-Posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+			for (size_t i = 0; i < len; i ++)
+				printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
 		}
 	}
 	else
 	{
-		printf("\U0000274C %-3d-Prueba buffer-\n", prueba);
-		for (size_t i = 0; i < len; i ++)
+		printf("\U0000274C %-3d- prueba buffer -\n", prueba);
+		if (print)
 		{
-			printf("-Posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+			for (size_t i = 0; i < len; i ++)
+				printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
 		}
 	}
 }
@@ -299,6 +301,8 @@ int main(int argc, char *argv[])
 	int random2;
 	int aux;
 	int aux1;
+	int *ptr;
+	int *ptr1;
 	clock_t start, end;
 	double cpu_time_used_ft;
 	double cpu_time_used;
@@ -384,7 +388,7 @@ int main(int argc, char *argv[])
 			bzero(str1, random);
 			ft_check_str(str, str1, "bzero", i);
 			ft_check_size(str, str1, "bzero", i);
-			ft_check_buffer(str, str1, random, "bzero", i);
+			ft_check_buffer(str, str1, random, "bzero", i, 1);
 			free(str);
 			free(str1);
 		}
@@ -394,31 +398,31 @@ int main(int argc, char *argv[])
 		bzero(buff1, 0);
 		ft_check_str(buff, buff1, "bzero", i);
 		ft_check_size(buff, buff1, "bzero", i);
-		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i, 1);
 		i ++;
 		ft_bzero(buff, 6);
 		bzero(buff1, 6);
 		ft_check_str(buff, buff1, "bzero", i);
 		ft_check_size(buff, buff1, "bzero", i);
-		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i, 1);
 		i++;
 		ft_bzero(buff, 9);
 		bzero(buff1, 9);
 		ft_check_str(buff, buff1, "bzero", i);
 		ft_check_size(buff, buff1, "bzero", i);
-		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i, 1);
 		free(buff);
 		free(buff1);
 		i ++;
 		ft_bzero(buffer_special_1_1, sizeof(buffer_special_1_1));
 		bzero(buffer_special_1_2, sizeof(buffer_special_1_2));
 		ft_check_size(buffer_special_1_1, buffer_special_1_2, "bzero", i);
-		ft_check_buffer(buffer_special_1_1, buffer_special_1_2, sizeof(buffer_special_1_2), "bzero", i);
+		ft_check_buffer(buffer_special_1_1, buffer_special_1_2, sizeof(buffer_special_1_2), "bzero", i, 1);
 		i ++;
 		ft_bzero(&my_struct, sizeof(my_struct));
 		bzero(&my_struct1, sizeof(my_struct1));
 		ft_check_size(&my_struct, &my_struct1, "bzero", i);
-		ft_check_buffer(&my_struct, &my_struct1, sizeof(my_struct), "bzero", i);
+		ft_check_buffer(&my_struct, &my_struct1, sizeof(my_struct), "bzero", i, 1);
 
 		
 		// Prueba de rendimiento bzero
@@ -457,18 +461,45 @@ int main(int argc, char *argv[])
 			str1 = (char *)calloc(random, random1);
 			ft_check_str(str, str1, "calloc", i);
 			ft_check_size(str, str1, "calloc", i);
+			ft_check_buffer(str, str1, (random * random1), "calloc", i, 0);
 			free(str);
 			free(str1);
 		}
-		/*str = (char *)ft_calloc(0, 0);
-		str1 = (char *)calloc(0, 0);
+		str = (char *)ft_calloc(2, 3);
+		str1 = (char *)calloc(2, 3);
 		ft_check_str(str, str1, "calloc", i);
-		i ++;
+		ft_check_size(str, str1, "calloc", i);
+		ft_check_buffer(str, str1, (2 * 3), "calloc", i, 1);
 		free(str);
-		free(str1);*/
+		free(str1);
+		i ++;
+		ptr = ft_calloc(1, sizeof(int));
+		ptr1 = calloc(1, sizeof(int));
+		ft_check_int(*ptr, *ptr1, "calloc", i);
+		ft_check_buffer(ptr, ptr1, 1, "calloc", i, 1);
+		free(ptr);
+		free(ptr1);
+		i ++;
+		ptr = ft_calloc(5, sizeof(int));
+		ptr1 = calloc(5, sizeof(int));
+		ft_check_buffer(ptr, ptr1, 5, "calloc", i, 1);
+		free(ptr);
+		free(ptr1);
+		i ++;
+		struct Data {
+			int a;
+			float b;
+			unsigned char c;
+		};
+		struct Data *ptr_struct1 = calloc(3, sizeof(struct Data));
+		ptr_struct1->c = 48;
+		struct Data *ptr_struct2 = calloc(3, sizeof(struct Data));
+		ptr_struct2->c = 48;
+		ft_check_buffer(ptr_struct1, ptr_struct2, sizeof(ptr_struct2) + 1, "calloc", i, 1);
+
 
 		// Prueba de rendimiento calloc
-		/*i = 0;
+		i = 0;
 		cpu_time_used_ft = 0;
 		cpu_time_used = 0;
 		while (i ++ < 200000)
@@ -486,16 +517,16 @@ int main(int argc, char *argv[])
 			free(str);
 			free(str1);
 		}
-		printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);*/
+		printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_calloc:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
 
-	if(argc == 1 || !strcmp(argv[1], "4"))
+	if (argc == 1 || !strcmp(argv[1], "4"))
 	{
 		printf("\n\U00002B50------Pruebas IsAlNum------\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
 		{
-			random = rand() % 127;
+			random = rand() % 128;
 			ft_check_is(ft_isalnum(random), isalnum(random), "isalnum", i, random);
 		}
 		ft_check_is(ft_isalnum(-47), isalnum(-47), "isalnum", i, -47);
@@ -523,6 +554,10 @@ int main(int argc, char *argv[])
 		ft_check_is(ft_isalnum(122), isalnum(122), "isalnum", i, 122);
 		i++;
 		ft_check_is(ft_isalnum(123), isalnum(123), "isalnum", i, 123);
+		i++;
+		ft_check_is(ft_isalnum(0), isalnum(0), "isalnum", i, 0);
+		i++;
+		ft_check_is(ft_isalnum(127), isalnum(127), "isalnum", i, 127);
 	
 		// Prueba de rendimiento isalnum
 		i = 0;
@@ -549,7 +584,7 @@ int main(int argc, char *argv[])
 		i = 0;
 		while (i++ < cantidad_pruebas)
 		{
-			random = rand() % 127;
+			random = rand() % 128;
 			ft_check_is(ft_isalpha(random), isalpha(random), "isalpha", i, random);
 		}
 		ft_check_is(ft_isalpha(-64), isalpha(-64), "isalpha", i, -64);
@@ -569,6 +604,10 @@ int main(int argc, char *argv[])
 		ft_check_is(ft_isalpha(122), isalpha(122), "isalpha", i, 122);
 		i++;
 		ft_check_is(ft_isalpha(123), isalpha(123), "isalpha", i, 123);
+		i++;
+		ft_check_is(ft_isalpha('!'), isalpha('!'), "isalpha", i, '!');
+		i++;
+		ft_check_is(ft_isalpha('\t'), isalpha('\t'), "isalpha", i, '\t');
 	
 		// Prueba de rendimiento isalpha
 		i = 0;
@@ -595,10 +634,12 @@ int main(int argc, char *argv[])
 		i = 0;
 		while (i++ < cantidad_pruebas)
 		{
-			random = rand() % 255;
+			random = rand() % 256;
 			ft_check_is(ft_isascii(random), __isascii(random), "isacii", i, random);
 		}
 		ft_check_is(ft_isascii(-10), __isascii(-10), "isacii", i, -10);
+		i++;
+		ft_check_is(ft_isascii(-1), __isascii(-1), "isacii", i, -1);
 		i++;
 		ft_check_is(ft_isascii(0), __isascii(0), "isacii", i, 0);
 		i++;
@@ -636,7 +677,7 @@ int main(int argc, char *argv[])
 		i = 0;
 		while (i++ < cantidad_pruebas)
 		{
-			random = rand() % 127;
+			random = rand() % 128;
 			ft_check_is(ft_isdigit(random), isdigit(random), "isdigit", i, random);
 		}
 		ft_check_is(ft_isdigit(-20), isdigit(-20), "isdigit", i, -20);
@@ -655,7 +696,7 @@ int main(int argc, char *argv[])
 		cpu_time_used = 0;
 		while (i++ < 200000)
 		{
-			random = rand() % 127;
+			random = rand() % 128;
 			start = clock();
 			aux = ft_isdigit(random);
 			end = clock();
@@ -721,6 +762,12 @@ int main(int argc, char *argv[])
 		}
 		ft_check_int(ft_strlen(""), strlen(""), "strlen", i);
 		i++;
+		ft_check_int(ft_strlen("Hola mundo"), strlen("Hola mundo"), "strlen", i);
+		i++;
+		ft_check_int(ft_strlen("Hola\nmundo"), strlen("Hola\nmundo"), "strlen", i);
+		i++;
+		ft_check_int(ft_strlen("¡¿Hola?!"), strlen("¡¿Hola?!"), "strlen", i);
+		i++;
 		ft_check_int(ft_strlen(long_str), strlen(long_str), "strlen", i);
 	
 		// Prueba de rendimiento strlen
@@ -753,6 +800,18 @@ int main(int argc, char *argv[])
 
 	if (argc == 1 || !strcmp(argv[1], "10"))
 	{
+		struct {
+			int a;
+			double b;
+			char c[8];
+		} my_struct = {1234, 56.78, "HELLO"};
+		struct {
+			int a;
+			double b;
+			char c[8];
+		} my_struct1 = {1234, 56.78, "HELLO"};
+		unsigned char buffer_special_1_1[] = {0xFF, 0xAA, 0x55, 0x00, 0x11};
+		unsigned char buffer_special_1_2[] = {0xFF, 0xAA, 0x55, 0x00, 0x11};
 		printf("\n\U00002B50------Pruebas Memset-----\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
@@ -769,6 +828,7 @@ int main(int argc, char *argv[])
 			ft_memset(str, random, random1);
 			memset(str1, random, random1);
 			ft_check_str((char *)str, (char *)str1, "memset", i);
+			ft_check_buffer((char *)str, (char *)str1, random1, "memset", i, 0);
 			free(str);
 			free(str1);
 		}
@@ -778,15 +838,32 @@ int main(int argc, char *argv[])
 		str1 = calloc(25, 1);
 		if (!str1)
 			return (1);
+		ft_memset(str, 48, 10);
+		memset(str1, 48, 10);
+		ft_check_str((char *)str, (char *)str1, "memset", i);
+		ft_check_buffer((char *)str, (char *)str1, 20, "memset", i, 1);
 		ft_memset(str, 0, 20);
 		memset(str1, 0, 20);
 		ft_check_str((char *)str, (char *)str1, "memset", i);
+		ft_check_buffer((char *)str, (char *)str1, 20, "memset", i, 1);
 		i++;
+		ft_memset(str, 20, 5);
+		memset(str1, 20, 5);
 		ft_memset(str, 20, 0);
 		memset(str1, 20, 0);
 		ft_check_str((char *)str, (char *)str1, "memset", i);
+		ft_check_buffer((char *)str, (char *)str1, 5, "memset", i, 1);
 		free(str);
 		free(str1);
+		i++;
+		ft_memset(&my_struct, 56, sizeof(my_struct));
+		memset(&my_struct1, 56, sizeof(my_struct1));
+		ft_check_buffer(&my_struct, &my_struct1, sizeof(my_struct1), "memset", i, 1);
+		i ++;
+		ft_memset(buffer_special_1_1, 9, sizeof(buffer_special_1_1));
+		memset(buffer_special_1_2, 9, sizeof(buffer_special_1_2));
+		ft_check_buffer(buffer_special_1_1, buffer_special_1_2, sizeof(buffer_special_1_2), "memset", i, 1);
+
 	
 		// Prueba de rendimiento memset
 		i = 0;
@@ -818,6 +895,11 @@ int main(int argc, char *argv[])
 
 	if (argc == 1 || !strcmp(argv[1], "11"))
 	{
+		struct Data {
+			int a;
+			double b;
+			char c;
+		} my_struct = {42, 3.14, 'X'}, my_struct1, my_struct2;
 		printf("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
@@ -844,10 +926,23 @@ int main(int argc, char *argv[])
 		if (!str1 || !str2)
 			return (1);
 		ft_check_str(ft_memcpy(str1, "Fran", 0), memcpy(str2, "Fran", 0), "memcpy", i);
+		ft_check_buffer(str1, str2, 5, "memcpy", i, 1);
+		i++;
+		ft_check_str(ft_memcpy(str1, "Fran", 4), memcpy(str2, "Fran", 4), "memcpy", i);
+		ft_check_buffer(str1, str2, 5, "memcpy", i, 1);
+		i++;
+		ft_check_str(ft_memcpy(str1, "Hola mundo", 6), memcpy(str2, "Hola mundo", 6), "memcpy", i);
+		ft_check_buffer(str1, str2, 10, "memcpy", i, 1);
+		i++;
+		ft_check_str(ft_memcpy(str1 + 5, "Hola mundo", 6), memcpy(str2 + 5, "Hola mundo", 6), "memcpy", i);
+		ft_check_buffer(str1, str2, 15, "memcpy", i, 1);
 		i++;
 		free(str1);
 		free(str2);
-	
+		ft_memcpy(&my_struct1, &my_struct, sizeof(my_struct));
+		memcpy(&my_struct2, &my_struct, sizeof(my_struct));
+		ft_check_buffer(&my_struct1, &my_struct2, sizeof(my_struct), "memcpy", i, 1);
+		
 		// Prueba de rendimiento memcpy
 		i = 0;
 		cpu_time_used_ft = 0;
@@ -880,6 +975,7 @@ int main(int argc, char *argv[])
 		printf("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
 
+	//Aqui casos especificicos.
 	if (argc == 1 || !strcmp(argv[1], "12"))
 	{
 		printf("\n\U00002B50------Pruebas Memmove-----\U00002B50\n");
@@ -1063,9 +1159,30 @@ int main(int argc, char *argv[])
 		}
 		printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strlcat:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
+	/*if(!strcmp(argv[1], "errores"))
+	{
+		//Errores calloc 6 - 4
+		str = (char *)ft_calloc(0, 0);
+		str1 = (char *)calloc(0, 0);
+		ft_check_str(str, str1, "calloc", i);
+		i ++;
+		free(str);
+		free(str1);
+		str = (char *)ft_calloc(2, 0);
+		str1 = (char *)calloc(2, 0);
+		ft_check_str(str, str1, "calloc", i);
+		i ++;
+		free(str);
+		free(str1);
+		str = (char *)ft_calloc(0, 4);
+		str1 = (char *)calloc(0, 4);
+		ft_check_str(str, str1, "calloc", i);
+		i ++;
+		free(str);
+		free(str1);
 
+	}*/
 
-	
 
 
 	
