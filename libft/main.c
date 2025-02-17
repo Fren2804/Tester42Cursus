@@ -42,6 +42,36 @@ void ft_check_size(void *str1, void *str2, char *nombre_funcion, int prueba)
 	{
 		printf("\U0000274C %-3d- sizeof-ft_%-10s: %-20ld		sizeof-%-5s: %-20ld \n", prueba, nombre_funcion, sizeof(*str1), nombre_funcion, sizeof(*str2));
 	}
+	if (strlen(str1) == strlen(str2))
+	{
+		printf("\U00002705 %-3d- strlen-ft_%-10s: %-20ld		strlen-%-5s: %-20ld \n", prueba, nombre_funcion, strlen(str1), nombre_funcion, strlen(str2));
+	}
+	else
+	{
+		printf("\U0000274C %-3d- strlen-ft_%-10s: %-20ld		strlen-%-5s: %-20ld \n", prueba, nombre_funcion, strlen(str1), nombre_funcion, strlen(str2));
+	}
+}
+
+void ft_check_buffer(void *buff1, void *buff2, int len, char *nombre_funcion, int prueba)
+{
+	const unsigned char *buf1 = (const unsigned char *)buff1;
+	const unsigned char *buf2 = (const unsigned char *)buff2;
+	if (memcmp(buff1, buff2, len) == 0)
+	{
+		printf("\U00002705 %-3d-Prueba buffer-\n", prueba);
+		for (size_t i = 0; i < len; i ++)
+		{
+			printf("-Posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+		}
+	}
+	else
+	{
+		printf("\U0000274C %-3d-Prueba buffer-\n", prueba);
+		for (size_t i = 0; i < len; i ++)
+		{
+			printf("-Posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+		}
+	}
 }
 
 void ft_check_is(int num1, int num2, char *nombre_funcion, int prueba, int value)
@@ -261,6 +291,8 @@ int main(int argc, char *argv[])
 	char *str1;
 	char *str2;
 	char *str3;
+	char *buff;
+	char *buff1;
 	int cantidad_pruebas;
 	int random;
 	int random1;
@@ -298,6 +330,12 @@ int main(int argc, char *argv[])
 		ft_check_int(ft_atoi("  -0"), atoi("  -0"), "atoi", i);
 		i++;
 		ft_check_int(ft_atoi(""), atoi(""), "atoi", i);
+		i++;
+		ft_check_int(ft_atoi("   "), atoi("   "), "atoi", i);
+		i++;
+		ft_check_int(ft_atoi("0000123"), atoi("0000123"), "atoi", i);
+		i++;
+		ft_check_int(ft_atoi("123\n456"), atoi("123\n456"), "atoi", i);
 
 		// Prueba de rendimiento atoi
 		i = 0;
@@ -322,6 +360,18 @@ int main(int argc, char *argv[])
 
 	if (argc == 1 || !strcmp(argv[1], "2"))
 	{
+		struct {
+			int a;
+			double b;
+			char c[8];
+		} my_struct = {1234, 56.78, "HELLO"};
+		struct {
+			int a;
+			double b;
+			char c[8];
+		} my_struct1 = {1234, 56.78, "HELLO"};
+		unsigned char buffer_special_1_1[] = {0xFF, 0xAA, 0x55, 0x00, 0x11};
+		unsigned char buffer_special_1_2[] = {0xFF, 0xAA, 0x55, 0x00, 0x11};
 		printf("\n\U00002B50------Pruebas Bzero------\U00002B50\n");
 		i = 0;
 		while (i++ < 5)
@@ -334,10 +384,43 @@ int main(int argc, char *argv[])
 			bzero(str1, random);
 			ft_check_str(str, str1, "bzero", i);
 			ft_check_size(str, str1, "bzero", i);
+			ft_check_buffer(str, str1, random, "bzero", i);
 			free(str);
 			free(str1);
 		}
+		buff = strdup("123456789");
+		buff1 = strdup("123456789");
+		ft_bzero(buff, 0);
+		bzero(buff1, 0);
+		ft_check_str(buff, buff1, "bzero", i);
+		ft_check_size(buff, buff1, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		i ++;
+		ft_bzero(buff, 6);
+		bzero(buff1, 6);
+		ft_check_str(buff, buff1, "bzero", i);
+		ft_check_size(buff, buff1, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		i++;
+		ft_bzero(buff, 9);
+		bzero(buff1, 9);
+		ft_check_str(buff, buff1, "bzero", i);
+		ft_check_size(buff, buff1, "bzero", i);
+		ft_check_buffer(buff, buff1, 9, "bzero", i);
+		free(buff);
+		free(buff1);
+		i ++;
+		ft_bzero(buffer_special_1_1, sizeof(buffer_special_1_1));
+		bzero(buffer_special_1_2, sizeof(buffer_special_1_2));
+		ft_check_size(buffer_special_1_1, buffer_special_1_2, "bzero", i);
+		ft_check_buffer(buffer_special_1_1, buffer_special_1_2, sizeof(buffer_special_1_2), "bzero", i);
+		i ++;
+		ft_bzero(&my_struct, sizeof(my_struct));
+		bzero(&my_struct1, sizeof(my_struct1));
+		ft_check_size(&my_struct, &my_struct1, "bzero", i);
+		ft_check_buffer(&my_struct, &my_struct1, sizeof(my_struct), "bzero", i);
 
+		
 		// Prueba de rendimiento bzero
 		i = 0;
 		cpu_time_used_ft = 0;
