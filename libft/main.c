@@ -1023,6 +1023,12 @@ int main(int argc, char *argv[])
 		ft_check_str(ft_memmove(str1, "Hola", 5), memmove(str2, "Hola", 5), "memmove", i);
 		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
 		i++;
+		ft_check_str(ft_memmove(str1 + 4, str1, 5), memmove(str2 + 4, str2, 5), "memmove", i);
+		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
+		i++;
+		ft_check_str(ft_memmove(str1, str1 + 2, 5), memmove(str2, str2 + 2, 5), "memmove", i);
+		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
+		i++;
 		ft_check_buffer(ft_memmove(dest, src, 3), memmove(dest1, src, 3), 10, "memmove", i, 1);
 		i++;
 		ft_check_buffer(ft_memmove(&my_struct1, &my_struct, sizeof(my_struct)), memmove(&my_struct2, &my_struct, sizeof(my_struct)), sizeof(my_struct), "memmove", i, 1);
