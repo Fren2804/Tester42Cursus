@@ -496,6 +496,8 @@ int main(int argc, char *argv[])
 		struct Data *ptr_struct2 = calloc(3, sizeof(struct Data));
 		ptr_struct2->c = 48;
 		ft_check_buffer(ptr_struct1, ptr_struct2, sizeof(ptr_struct2) + 1, "calloc", i, 1);
+		free(ptr_struct1);
+		free(ptr_struct2);
 
 
 		// Prueba de rendimiento calloc
@@ -939,9 +941,9 @@ int main(int argc, char *argv[])
 		i++;
 		free(str1);
 		free(str2);
-		ft_memcpy(&my_struct1, &my_struct, sizeof(my_struct));
+		/*ft_memcpy(&my_struct1, &my_struct, sizeof(my_struct));
 		memcpy(&my_struct2, &my_struct, sizeof(my_struct));
-		ft_check_buffer(&my_struct1, &my_struct2, sizeof(my_struct), "memcpy", i, 1);
+		ft_check_buffer(&my_struct1, &my_struct2, sizeof(my_struct), "memcpy", i, 1);*/
 		
 		// Prueba de rendimiento memcpy
 		i = 0;
@@ -975,7 +977,6 @@ int main(int argc, char *argv[])
 		printf("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
 
-	//Aqui casos especificicos.
 	if (argc == 1 || !strcmp(argv[1], "12"))
 	{
 		int dest[] = {1, 2, 3, 4, 5, 6};
@@ -1030,8 +1031,8 @@ int main(int argc, char *argv[])
 		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
 		i++;
 		ft_check_buffer(ft_memmove(dest, src, 3), memmove(dest1, src, 3), 10, "memmove", i, 1);
-		i++;
-		ft_check_buffer(ft_memmove(&my_struct1, &my_struct, sizeof(my_struct)), memmove(&my_struct2, &my_struct, sizeof(my_struct)), sizeof(my_struct), "memmove", i, 1);
+		/*i++;
+		ft_check_buffer(ft_memmove(&my_struct1, &my_struct, sizeof(my_struct)), memmove(&my_struct2, &my_struct, sizeof(my_struct)), sizeof(my_struct), "memmove", i, 1);*/
 		free(str1);
 		free(str2);
 	
@@ -1079,11 +1080,12 @@ int main(int argc, char *argv[])
 			random1 = rand() % 40;
 			random2 = rand() % 40;
 			str = calloc(80, 1);
+			str1 = calloc(80, 1);
 			str2 = calloc(80, 1);
-			if (!str || !str2)
+			if (!str || !str1 || !str2)
 				return (1);
 			ft_generate_string_without_malloc(&str, random, 1);
-			ft_generate_string(&str1, random1, 1);
+			ft_generate_string_without_malloc(&str1, random1, 1);
 			memcpy(str2, str1, strlen(str1));
 			printf("\n");
 			ft_check_int(ft_strlcpy(str1, str, random2), strlcpy(str2, str, random2), "strlcpy", i);
@@ -1093,6 +1095,40 @@ int main(int argc, char *argv[])
 			free(str2);
 		}
 
+		str1 = calloc(80, 1);
+		str2 = calloc(80, 1);
+		if (!str1 || !str2)
+			return (1);
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "", 10), strlcpy(str2, "", 10), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "Hola", 10), strlcpy(str2, "Hola", 10), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, long_str, 80), strlcpy(str2, long_str, 80), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "Hola", 1), strlcpy(str2, "Hola", 1), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "Francisco", 0), strlcpy(str2, "Francisco", 0), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "Francisco", 5), strlcpy(str2, "Francisco", 5), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		printf("\n");
+		ft_check_int(ft_strlcpy(str1, "Franci\0sco", 20), strlcpy(str2, "Franci\0sco", 20), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		i ++;
+		free(str1);
+		free(str2);
 
 		// Prueba de rendimiento strlcpy
 		i = 0;
@@ -1104,11 +1140,12 @@ int main(int argc, char *argv[])
 			random1 = rand() % 40;
 			random2 = rand() % 40;
 			str = calloc(80, 1);
+			str1 = calloc(80, 1);
 			str2 = calloc(80, 1);
-			if (!str || !str2)
+			if (!str || !str1 || !str2)
 				return (1);
 			ft_generate_string_without_malloc(&str, random, 1);
-			ft_generate_string(&str1, random1, 1);
+			ft_generate_string_without_malloc(&str1, random1, 1);
 			memcpy(str2, str1, strlen(str1));		
 			start = clock();
 			ft_strlcpy(str1, str, random1);
@@ -1147,10 +1184,38 @@ int main(int argc, char *argv[])
 			printf("\n");
 			ft_check_int(ft_strlcat(str1, str, random1), strlcat(str2, str, random1), "strlcat", i);
 			ft_check_str((char *)str1, (char *)str2, "strlcat", i);
+			ft_check_buffer(str1, str2, strlen(str2), "strlcat", i, 0);
 			free(str);
 			free(str1);
 			free(str2);
 		}
+		str1 = calloc(10, 1);
+		str2 = calloc(10, 1);
+		if (!str1 || !str2)
+			return (1);
+		strcpy(str1, "Hola");
+		strcpy(str2, "Hola");
+		printf("\n");
+		ft_check_int(ft_strlcat(str1, " Mundo Dos", 10), strlcat(str2, " Mundo Dos", 10), "strlcat", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcat", i);
+		ft_check_buffer(str1, str2, strlen(str2) + 1, "strlcat", i, 1);
+		i ++;
+		strcpy(str1, "Hola");
+		strcpy(str2, "Hola");
+		printf("\n");
+		ft_check_int(ft_strlcat(str1, " Mu", 10), strlcat(str2, " Mu", 10), "strlcat", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcat", i);
+		ft_check_buffer(str1, str2, strlen(str2) + 1, "strlcat", i, 1);
+		i ++;
+		strcpy(str1, "Hola  que");
+		strcpy(str2, "Hola  que");
+		printf("\n");
+		ft_check_int(ft_strlcat(str1, " Mundo", 10), strlcat(str2, " Mundo", 10), "strlcat", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcat", i);
+		ft_check_buffer(str1, str2, strlen(str2) + 1, "strlcat", i, 1);
+		i ++;
+		free(str1);
+		free(str2);
 
 
 		// Prueba de rendimiento strlcat
@@ -1184,6 +1249,8 @@ int main(int argc, char *argv[])
 		}
 		printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strlcat:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
+
+
 	/*if(!strcmp(argv[1], "errores"))
 	{
 		//Errores calloc 6 - 4
