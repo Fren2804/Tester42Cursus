@@ -978,6 +978,14 @@ int main(int argc, char *argv[])
 	//Aqui casos especificicos.
 	if (argc == 1 || !strcmp(argv[1], "12"))
 	{
+		int dest[] = {1, 2, 3, 4, 5, 6};
+		int dest1[] = {1, 2, 3, 4, 5, 6};
+		int src[] = {7, 8, 9};
+		struct Data {
+    		int a;
+    		double b;
+    		char c;
+		} my_struct = {42, 3.14, 'X'}, my_struct1, my_struct2;
 		printf("\n\U00002B50------Pruebas Memmove-----\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
@@ -995,6 +1003,7 @@ int main(int argc, char *argv[])
 			ft_memmove(str1, str, random1);
 			memmove(str2, str, random1);
 			ft_check_str((char *)str1, (char *)str2, "memmove", i);
+			ft_check_buffer(str1, str2, strlen(str2), "memmove", i, 0);
 			free(str);
 			free(str1);
 			free(str2);
@@ -1003,10 +1012,20 @@ int main(int argc, char *argv[])
 		str2 = calloc(30, 1);
 		if (!str1 || !str2)
 			return (1);
+		memset(str1, 'A', 5);
+		memset(str2, 'A', 5);
 		ft_check_str(ft_memmove(str1, "Fran", 0), memmove(str2, "Fran", 0), "memmove", i);
+		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
 		i++;
-		ft_check_str(ft_memmove(str1, "Fran", 5), memmove(str2, "Fran", 5), "memmove", i);
+		ft_check_str(ft_memmove(str1, "Francisco", 10), memmove(str2, "Francisco", 10), "memmove", i);
+		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
 		i++;
+		ft_check_str(ft_memmove(str1, "Hola", 5), memmove(str2, "Hola", 5), "memmove", i);
+		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
+		i++;
+		ft_check_buffer(ft_memmove(dest, src, 3), memmove(dest1, src, 3), 10, "memmove", i, 1);
+		i++;
+		ft_check_buffer(ft_memmove(&my_struct1, &my_struct, sizeof(my_struct)), memmove(&my_struct2, &my_struct, sizeof(my_struct)), sizeof(my_struct), "memmove", i, 1);
 		free(str1);
 		free(str2);
 	
