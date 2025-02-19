@@ -8,6 +8,12 @@
 #define INT_MAX 2147483647
 #define INT_MIN -2147483648
 
+struct Data1 {
+	int a;
+	double b;
+	char c[8];
+} my_struct_aux = {1234, 56.78, "HELLO"};
+
 void ft_check_int(int num1, int num2, char *nombre_funcion, int prueba)
 {
 	if (num1 == num2)
@@ -861,6 +867,7 @@ int main(int argc, char *argv[])
 		ft_memset(&my_struct, 56, sizeof(my_struct));
 		memset(&my_struct1, 56, sizeof(my_struct1));
 		ft_check_buffer(&my_struct, &my_struct1, sizeof(my_struct1), "memset", i, 1);
+		//ft_check_buffer(&my_struct, &my_struct, sizeof(my_struct), "memset", i, 1);
 		i ++;
 		ft_memset(buffer_special_1_1, 9, sizeof(buffer_special_1_1));
 		memset(buffer_special_1_2, 9, sizeof(buffer_special_1_2));
@@ -897,11 +904,8 @@ int main(int argc, char *argv[])
 
 	if (argc == 1 || !strcmp(argv[1], "11"))
 	{
-		struct Data {
-			int a;
-			double b;
-			char c;
-		} my_struct = {42, 3.14, 'X'}, my_struct1, my_struct2;
+		struct Data1 struct1 = {0};
+		struct Data1 struct2 = {0};
 		printf("\n\U00002B50------Pruebas Memcpy-----\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
@@ -941,10 +945,9 @@ int main(int argc, char *argv[])
 		i++;
 		free(str1);
 		free(str2);
-		/*ft_memcpy(&my_struct1, &my_struct, sizeof(my_struct));
-		memcpy(&my_struct2, &my_struct, sizeof(my_struct));
-		ft_check_buffer(&my_struct1, &my_struct2, sizeof(my_struct), "memcpy", i, 1);*/
-		
+		ft_memcpy(&struct1, &my_struct_aux, sizeof(my_struct_aux));
+		memcpy(&struct2, &my_struct_aux, sizeof(my_struct_aux));
+		ft_check_buffer(&struct1, &struct2, sizeof(struct2), "memcpy", i, 1);
 		// Prueba de rendimiento memcpy
 		i = 0;
 		cpu_time_used_ft = 0;
@@ -973,7 +976,6 @@ int main(int argc, char *argv[])
 			free(str1);
 			free(str2);
 		}
-	
 		printf("\n\U0001F3C1 Rendimiento 200000 operaciones ft_memcpy:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
 	}
 
@@ -982,18 +984,14 @@ int main(int argc, char *argv[])
 		int dest[] = {1, 2, 3, 4, 5, 6};
 		int dest1[] = {1, 2, 3, 4, 5, 6};
 		int src[] = {7, 8, 9};
-		struct Data {
-    		int a;
-    		double b;
-    		char c;
-		} my_struct = {42, 3.14, 'X'}, my_struct1, my_struct2;
+		struct Data1 struct1 = {0};
+		struct Data1 struct2 = {0};
 		printf("\n\U00002B50------Pruebas Memmove-----\U00002B50\n");
 		i = 0;
 		while (i++ < cantidad_pruebas)
 		{
 			random = rand() % 20;
 			random1 = rand() % 20;
-	
 			ft_generate_string(&str, random, 1);
 			str1 = calloc(30, 1);
 			str2 = calloc(30, 1);
@@ -1031,8 +1029,8 @@ int main(int argc, char *argv[])
 		ft_check_buffer(str1, str2, 30, "memmove", i, 1);
 		i++;
 		ft_check_buffer(ft_memmove(dest, src, 3), memmove(dest1, src, 3), 10, "memmove", i, 1);
-		/*i++;
-		ft_check_buffer(ft_memmove(&my_struct1, &my_struct, sizeof(my_struct)), memmove(&my_struct2, &my_struct, sizeof(my_struct)), sizeof(my_struct), "memmove", i, 1);*/
+		i++;
+		ft_check_buffer(ft_memmove(&struct2, &my_struct_aux, sizeof(my_struct_aux)), memmove(&struct2, &my_struct_aux, sizeof(my_struct_aux)), sizeof(my_struct_aux), "memmove", i, 1);
 		free(str1);
 		free(str2);
 	

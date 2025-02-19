@@ -1,2 +1,2 @@
 Tengo que hacer un if (argv[1] == "free errors") para todo los casos que valgrind provoca errores, pero es bueno comprobar que ambas funciones funcionan igual
-Me queda el strlcat y luego del memmove y el mcpy tengo problema con la struct, problemas de valgrind.
+Me queda el strlcat 
