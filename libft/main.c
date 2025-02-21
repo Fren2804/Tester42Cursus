@@ -28,13 +28,24 @@ void ft_check_int(int num1, int num2, char *nombre_funcion, int prueba)
 
 void ft_check_str(char *str1, char *str2, char *nombre_funcion, int prueba)
 {
-	if (strcmp(str1, str2) == 0)
+	if (str1 == NULL && str2 == NULL)
 	{
 		printf("\U00002705 %-3d- ft_%-5s: %-30s		%-5s: %-30s \n", prueba, nombre_funcion, str1, nombre_funcion, str2);
 	}
-	else
+	else if ((str1 == NULL && str2 != NULL) || (str2 == NULL && str1 != NULL))
 	{
 		printf("\U0000274C %-3d- ft_%-5s: %-30s		%-5s: %-30s \n", prueba, nombre_funcion, str1, nombre_funcion, str2);
+	}
+	else
+	{
+		if (strcmp(str1, str2) == 0)
+		{
+			printf("\U00002705 %-3d- ft_%-5s: %-30s		%-5s: %-30s \n", prueba, nombre_funcion, str1, nombre_funcion, str2);
+		}
+		else
+		{
+			printf("\U0000274C %-3d- ft_%-5s: %-30s		%-5s: %-30s \n", prueba, nombre_funcion, str1, nombre_funcion, str2);
+		}
 	}
 }
 
@@ -62,22 +73,41 @@ void ft_check_buffer(void *buff1, void *buff2, int len, char *nombre_funcion, in
 {
 	const unsigned char *buf1 = (const unsigned char *)buff1;
 	const unsigned char *buf2 = (const unsigned char *)buff2;
-	if (memcmp(buff1, buff2, len) == 0)
+	if (buf1 == NULL && buf2 == NULL)
 	{
 		printf("\U00002705 %-3d- prueba buffer -\n", prueba);
-		if (print)
-		{
-			for (size_t i = 0; i < len; i ++)
-				printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
-		}
+			if (print)
+			{
+				printf("- buffer - Valor ft_%-5s: %-5s - Valor %-5s: %-5s \n", nombre_funcion, buf1, nombre_funcion, buf2);
+			}
+	}
+	else if ((buf1 == NULL && buf2 != NULL) || (buf2 == NULL && buf1 != NULL))
+	{
+		printf("\U0000274C %-3d- prueba buffer -\n", prueba);
+			if (print)
+			{
+				printf("- buffer - Valor ft_%-5s: %-5s - Valor %-5s: %-5s \n", nombre_funcion, buf1, nombre_funcion, buf2);
+			}
 	}
 	else
 	{
-		printf("\U0000274C %-3d- prueba buffer -\n", prueba);
-		if (print)
+		if (memcmp(buff1, buff2, len) == 0)
 		{
-			for (size_t i = 0; i < len; i ++)
-				printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+			printf("\U00002705 %-3d- prueba buffer -\n", prueba);
+			if (print)
+			{
+				for (size_t i = 0; i < len; i ++)
+					printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+			}
+		}
+		else
+		{
+			printf("\U0000274C %-3d- prueba buffer -\n", prueba);
+			if (print)
+			{
+				for (size_t i = 0; i < len; i ++)
+					printf("- posicion buffer: %-3ld Valor ft_%-5s: %02X - Valor %-5s: %02X \n", i, nombre_funcion, buf1[i], nombre_funcion, buf2[i]);
+			}
 		}
 	}
 }
@@ -538,6 +568,8 @@ int main(int argc, char *argv[])
 			ft_check_is(ft_isalnum(random), isalnum(random), "isalnum", i, random);
 		}
 		ft_check_is(ft_isalnum(-47), isalnum(-47), "isalnum", i, -47);
+		i++;
+		ft_check_is(ft_isalnum(-98), isalnum(-98), "isalnum", i, -98);
 		i++;
 		ft_check_is(ft_isalnum(47), isalnum(47), "isalnum", i, 47);
 		i++;
@@ -1127,6 +1159,17 @@ int main(int argc, char *argv[])
 		i ++;
 		free(str1);
 		free(str2);
+		str1 = calloc(strlen(long_str1), 1);
+		str2 = calloc(strlen(long_str1), 1);
+		if (!str1 || !str2)
+			return (1);
+		printf("\n");
+		memcpy(str1, long_str1, strlen(long_str1));
+		memcpy(str2, long_str1, strlen(long_str1));
+		ft_check_int(ft_strlcpy(str1, long_str, strlen(long_str)), strlcpy(str2, long_str, strlen(long_str)), "strlcpy", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcpy", i);
+		free(str1);
+		free(str2);
 
 		// Prueba de rendimiento strlcpy
 		i = 0;
@@ -1214,7 +1257,18 @@ int main(int argc, char *argv[])
 		i ++;
 		free(str1);
 		free(str2);
-
+		str1 = calloc(strlen(long_str) + strlen(long_str1), 1);
+		str2 = calloc(strlen(long_str) + strlen(long_str1), 1);
+		if (!str1 || !str2)
+			return (1);
+		strcpy(str1, long_str);
+		strcpy(str2, long_str);
+		printf("\n");
+		ft_check_int(ft_strlcat(str1, long_str1, strlen(long_str) + strlen(long_str1)), strlcat(str2, long_str1, strlen(long_str) + strlen(long_str1)), "strlcat", i);
+		ft_check_str((char *)str1, (char *)str2, "strlcat", i);
+		ft_check_buffer(str1, str2, strlen(str2) + 1, "strlcat", i, 0);
+		free(str1);
+		free(str2);
 
 		// Prueba de rendimiento strlcat
 		i = 0;
@@ -1249,30 +1303,178 @@ int main(int argc, char *argv[])
 	}
 
 
-	/*if(!strcmp(argv[1], "errores"))
+	if (argc == 1 || !strcmp(argv[1], "15"))
 	{
-		//Errores calloc 6 - 4
-		str = (char *)ft_calloc(0, 0);
-		str1 = (char *)calloc(0, 0);
-		ft_check_str(str, str1, "calloc", i);
-		i ++;
-		free(str);
-		free(str1);
-		str = (char *)ft_calloc(2, 0);
-		str1 = (char *)calloc(2, 0);
-		ft_check_str(str, str1, "calloc", i);
-		i ++;
-		free(str);
-		free(str1);
-		str = (char *)ft_calloc(0, 4);
-		str1 = (char *)calloc(0, 4);
-		ft_check_str(str, str1, "calloc", i);
-		i ++;
-		free(str);
-		free(str1);
+		printf("\n\U00002B50------Pruebas ToUpper------\U00002B50\n");
+		i = 0;
+		while (i++ < cantidad_pruebas)
+		{
+			random = rand() % 128;
+			ft_check_int(ft_toupper(random), toupper(random), "toupper", i);
+		}
+		ft_check_int(ft_toupper(-1), toupper(-1), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(-2), toupper(-2), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(-47), toupper(-47), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(-255), toupper(-255), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(-470), toupper(-470), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(47), toupper(47), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(48), toupper(48), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(57), toupper(57), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(58), toupper(58), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(64), toupper(64), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(65), toupper(65), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(90), toupper(90), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(91), toupper(91), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(96), toupper(96), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(97), toupper(97), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(122), toupper(122), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(123), toupper(123), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(0), toupper(0), "toupper", i);
+		i++;
+		ft_check_int(ft_toupper(127), toupper(127), "toupper", i);
+	
+		// Prueba de rendimiento toupper
+		i = 0;
+		cpu_time_used_ft = 0;
+		cpu_time_used = 0;
+		while (i++ < 200000)
+		{
+			random = rand() % 127;
+			start = clock();
+			aux = ft_toupper(random);
+			end = clock();
+			cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+			start = clock();
+			aux = toupper(random);
+			end = clock();
+			cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		}
+		printf("\n\U0001F3C1 Rendimiento 200000 operaciones ft_toupper:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	}
 
-	}*/
 
+	if (argc == 1 || !strcmp(argv[1], "16"))
+	{
+		printf("\n\U00002B50------Pruebas ToLower------\U00002B50\n");
+		i = 0;
+		while (i++ < cantidad_pruebas)
+		{
+			random = rand() % 128;
+			ft_check_int(ft_tolower(random), tolower(random), "tolower", i);
+		}
+		ft_check_int(ft_tolower(-1), tolower(-1), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-2), tolower(-2), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-47), tolower(-47), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-128), tolower(-128), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-129), tolower(-129), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-255), tolower(-255), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(-470), tolower(-470), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(47), tolower(47), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(48), tolower(48), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(57), tolower(57), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(58), tolower(58), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(64), tolower(64), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(65), tolower(65), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(90), tolower(90), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(91), tolower(91), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(96), tolower(96), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(97), tolower(97), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(122), tolower(122), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(123), tolower(123), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(0), tolower(0), "tolower", i);
+		i++;
+		ft_check_int(ft_tolower(127), tolower(127), "tolower", i);
+	
+		// Prueba de rendimiento tolower
+		i = 0;
+		cpu_time_used_ft = 0;
+		cpu_time_used = 0;
+		while (i++ < 200000)
+		{
+			random = rand() % 127;
+			start = clock();
+			aux = ft_tolower(random);
+			end = clock();
+			cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+			start = clock();
+			aux = tolower(random);
+			end = clock();
+			cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+		}
+		printf("\n\U0001F3C1 Rendimiento 200000 operaciones ft_tolower:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+	}
+
+	//Queda mas, pruebas unitarias
+
+	if (argc == 1 || !strcmp(argv[1], "17"))
+	{
+		printf("\n\U00002B50------Pruebas Strchr-----\U00002B50\n");
+		i = 0;
+		while (i++ < cantidad_pruebas)
+		{
+			char *aux_str1;
+			char *aux_str2;
+			random = (rand() % (126 - 32 + 1)) + 32;
+			random1 = rand() % 40 + 10;
+			random2 = rand() % 40;
+			str1 = calloc(100, 1);
+			aux_str1 = calloc(100, 1);
+			str2 = calloc(100, 1);
+			aux_str2 = calloc(100, 1);
+			if (!str1 || !str2 || !aux_str1 || !aux_str2)
+				return (1);
+			ft_generate_string_without_malloc(&str1, random1, 1);
+			memcpy(str2, str1, strlen(str1));
+			aux_str1 = ft_strchr(str1, random);
+			aux_str2 = strchr(str2, random);
+			ft_check_str(aux_str1, aux_str2, "strchr", i);
+			if (aux_str1 == NULL || aux_str2 == NULL)
+				ft_check_buffer(ft_strchr(str1, random), strchr(str2, random), 0, "strchr", i, 1);
+			else
+				ft_check_buffer(ft_strchr(str1, random), strchr(str2, random), strlen(strchr(str2, random)) + 1, "strchr", i, 0);
+			printf("\n");
+		}
+	}
+
+
+
+	
 
 
 	

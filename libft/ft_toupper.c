@@ -19,5 +19,7 @@ int	ft_toupper(int c)
 {
 	if (ft_islower(c))
 		return (c - 32);
+	if (c < -1 && c > -129)
+		return ((unsigned char) c);
 	return (c);
 }
