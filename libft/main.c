@@ -1470,6 +1470,36 @@ int main(int argc, char *argv[])
 				ft_check_buffer(ft_strchr(str1, random), strchr(str2, random), strlen(strchr(str2, random)) + 1, "strchr", i, 0);
 			printf("\n");
 		}
+
+		// Prueba de rendimiento strchr
+		i = 0;
+		cpu_time_used_ft = 0;
+		cpu_time_used = 0;
+		while (i ++ < 200000)
+		{
+			random = (rand() % (126 - 32 + 1)) + 32;
+			random1 = rand() % 40 + 10;
+			str1 = calloc(100, 1);
+			str2 = calloc(100, 1);
+			if (!str1 || !str2)
+				return (1);
+			ft_generate_string_without_malloc(&str1, random1, 1);
+			memcpy(str2, str1, strlen(str1));		
+			start = clock();
+			ft_strchr(str1, random);
+			end = clock();
+			cpu_time_used_ft += ((double)(end - start)) / CLOCKS_PER_SEC;
+			start = clock();
+			strchr(str2, random);
+			end = clock();
+			cpu_time_used += ((double)(end - start)) / CLOCKS_PER_SEC;
+			free(str1);
+			free(str2);
+		}
+		printf ("\n\U0001F3C1 Rendimiento 200000 operaciones ft_strchr:%fs 	original:%fs \U0001F3C1\n", cpu_time_used_ft, cpu_time_used);
+
+
+		
 	}
 
 
